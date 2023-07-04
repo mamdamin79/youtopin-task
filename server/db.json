@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "next.js",
+      "desc": "learnig about app router"
+    },
+    {
+      "id": 1,
+      "title": "gym",
+      "author": "hit chest"
+    },
+    {
+      "id": 1,
+      "title": "tailwind",
+      "author": "learn about typography plugin"
+    }
+  ]
+}
