@@ -3,17 +3,22 @@
     {
       "id": 1,
       "title": "next.js",
-      "desc": "learnig about app router"
+      "desc": "learnig about app router",
+      "compeleted":false  
     },
     {
-      "id": 1,
+      "id": 2,
       "title": "gym",
-      "author": "hit chest"
+      "desc": "hit chest",
+      "compeleted":false  
+
     },
     {
-      "id": 1,
+      "id": 3,
       "title": "tailwind",
-      "author": "learn about typography plugin"
+      "desc": "learn about typography plugin",
+      "compeleted":false  
+
     }
   ]
 }

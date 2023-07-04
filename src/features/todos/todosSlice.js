@@ -1,13 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
+import axios from "axios"
 
-const initialState = [];
+const getAsyncTodos = createAsyncThunk("todos/getAsyncTodos",async(_,{rejectWithValue})=>{
+  try{
+    const response = await axios.get("http://localhost:3001/todos");
+  }catch{
+    return rejectWithValue([],error.message)
+  }
+})
+
+const initialState = {
+  todos:[],
+  loading:false,
+  error:null,
+};
 
 export const todosSlice = createSlice({
   name: 'todos',
   initialState,
-  reducers: {
-    
-  },
+  reducers: {},
+  extraReducers:{
+    getAsyncTodos
+  }
 })
 
 // Action creators are generated for each case reducer function
