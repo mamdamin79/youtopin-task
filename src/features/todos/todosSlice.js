@@ -20,7 +20,15 @@ export const todosSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers:{
-    getAsyncTodos
+    [getAsyncTodos.fulfilled] : (state,action)=>{
+      return {...state, todos:action.payload , error:null,loading:false}
+    },
+    [getAsyncTodos.pending] : (state,action)=>{
+      return {...state, todos:[] , error:null , loading:true}
+    },
+    [getAsyncTodos.rejected] : (state,action)=>{
+      return {...state, todos:[] , error:action.payload, loading:false}
+    }
   }
 })
 
