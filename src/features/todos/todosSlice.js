@@ -1,11 +1,12 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from "axios"
 
-const getAsyncTodos = createAsyncThunk("todos/getAsyncTodos",async(_,{rejectWithValue})=>{
+export const getAsyncTodos = createAsyncThunk("todos/getAsyncTodos",async(_,{rejectWithValue})=>{
   try{
-    const response = await axios.get("http://localhost:3001/todos");
+    const response = await axios.get("http://localhost:3001/todsos");
+    return response
   }catch{
-    return rejectWithValue([],error.message)
+    return rejectWithValue([],error)
   }
 })
 
@@ -27,7 +28,7 @@ export const todosSlice = createSlice({
       return {...state, todos:[] , error:null , loading:true}
     },
     [getAsyncTodos.rejected] : (state,action)=>{
-      return {...state, todos:[] , error:action.payload, loading:false}
+      return {...state, todos:[] , error:action.error.message, loading:false}
     }
   }
 })
