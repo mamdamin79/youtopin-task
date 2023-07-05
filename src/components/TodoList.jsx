@@ -13,7 +13,7 @@ const TodoList = () => {
         dispatch(getAsyncTodos())
     },[])
     if (loading) return <Center> <Spinner /> </Center>
-    if (error) return <Center><p>your request failed</p></Center> 
+    if (error) return <Center><p color="red">your request failed</p></Center> 
   return (
       <>
         {
@@ -43,17 +43,13 @@ const TodoList = () => {
                         >
                         {todo.title}
                     </Text>
-                    <Button   variant='outline' onClick={() =>dispatch(toggleCompleteAsync({ id:todo.id, title:todo.title, completed: !todo.completed }))} colorScheme='blue'>toggle</Button>
+                    <Button px="6" variant='outline' onClick={() =>dispatch(toggleCompleteAsync({ id:todo.id, title:todo.title, completed: !todo.completed }))} colorScheme='blue'>{todo.completed ? "complete":"in progress"}</Button>
                     <Modal   todo={todo}/>
                 </HStack>
             ))}    
               
-        </VStack>:<p>there is no task in your todo list,well done:)</p>
+        </VStack>:<p>there is no task in your todo list</p>
         }
-
-        <Flex>
-            {/* <DeleteAllTask deleteTaskAll={deleteTaskAll} /> */}
-        </Flex>
     </>
   );
 }

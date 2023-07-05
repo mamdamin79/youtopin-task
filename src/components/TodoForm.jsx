@@ -7,8 +7,27 @@ import { addAsyncTodos } from "../features/todos/todosSlice";
 const TodoForm = () => {
     const [content, setContent] = useState('');
     const dispatch = useDispatch()
+    const toast = useToast()
     const addTodo = ()=>{
-        dispatch(addAsyncTodos({title:content}));
+        if (content) {
+            dispatch(addAsyncTodos({title:content}));
+            toast({
+                title: 'todo added.',
+                description: "We've added your task.",
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+              })
+        }
+        else{
+            toast({
+                title: 'title is required',
+                description: "you should add a title for your task.",
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
+        }
         setContent("");
     }
     return (
