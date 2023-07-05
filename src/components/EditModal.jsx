@@ -6,39 +6,57 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure,
     Button,
- } from '@chakra-ui/react'
+    Input,
+    FormControl,
+    useDisclosure,
+    IconButton,
+    useToast} from '@chakra-ui/react';
+import { useState } from 'react';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteAsyncTodos } from '../features/todos/todosSlice';
-
-function EditModal({todo}) {
+import { editTodoAsync } from '../features/todos/todosSlice';
+const EditModal = ({todo}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [newTitle,setNewTitle] = useState(todo.title)
+    const toast =useToast()
     const dispatch = useDispatch()
+    const editHandler = ()=>{
+        dispatch(editTodoAsync({id:todo.id,title:newTitle,completed:todo.completed}))
+        onClose();
+        toast({
+            title: 'todo edited.',
+            description: "We've editted your task title.",
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          })
+
+    }
 
     return (
         <>
-        <Button onClick={onOpen}>delete</Button>
+        <Button onClick={onOpen}>edit</Button>
     
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-                do you really want to delete {todo.title} task?
-        </ModalBody>
+                <ModalContent>
+                    <ModalHeader>edit Title</ModalHeader>
+                        <ModalCloseButton />
+                    <ModalBody>
+                        <Input onChange={(e) => setNewTitle(e.target.value)} value={newTitle} placeholder='Basic usage' />
+                    </ModalBody>
 
-        <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-            Close
-            </Button>
-            <Button colorScheme='red' onClick={()=>dispatch(deleteAsyncTodos(todo))}>Delete!!</Button>
-        </ModalFooter>
-        </ModalContent>
-    </Modal>
+                    <ModalFooter>
+                        <Button colorScheme='gray' mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                        <Button colorScheme='blue' onClick={()=>editHandler()} >edit</Button>
+                    </ModalFooter>
+                </ModalContent>
+        </Modal>
     </>
-)
-        }
+    );
+}
  
 export default EditModal;

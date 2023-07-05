@@ -2,19 +2,22 @@ import {useEffect} from "react"
 import { HStack, Box, VStack, IconButton, Flex, Button, Text, StackDivider, Center, Spinner } from '@chakra-ui/react'
 import {useDispatch ,useSelector} from "react-redux"
 import { deleteAsyncTodos, getAsyncTodos, toggleCompleteAsync } from "../features/todos/todosSlice"
-import Modal from '../components/EditModal'
+import Modal from './DeleteModal'
+import DeleteModal from "./DeleteModal"
+import EditModal from "./EditModal"
 
 const TodoList = () => {
     const {todos,loading,error} = useSelector((state)=>state.todos)
     const dispatch = useDispatch()
-    console.log(todos)
 
+    //fetch data
     useEffect(()=>{
         dispatch(getAsyncTodos())
     },[])
+
     if (loading) return <Center> <Spinner /> </Center>
     if (error) return <Center><p color="red">your request failed</p></Center> 
-  return (
+    return (
       <>
         {
             todos.length > 0 ? <VStack
@@ -45,6 +48,7 @@ const TodoList = () => {
                     </Text>
                     <Button px="6" variant='outline' onClick={() =>dispatch(toggleCompleteAsync({ id:todo.id, title:todo.title, completed: !todo.completed }))} colorScheme='blue'>{todo.completed ? "complete":"in progress"}</Button>
                     <Modal   todo={todo}/>
+                    <EditModal todo={todo}/>
                 </HStack>
             ))}    
               

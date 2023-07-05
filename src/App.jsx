@@ -4,6 +4,7 @@ import { store } from './features/store'
 import { Provider } from 'react-redux'
 import TodoList from "./components/TodoList"
 import TodoForm from './components/TodoForm'
+import EditModal from './components/EditModal'
 
 
 function App() {
