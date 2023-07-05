@@ -32,6 +32,19 @@ export const addAsyncTodos = createAsyncThunk(
 );
 
 
+export const deleteAsyncTodos = createAsyncThunk(
+  "todos/deleteAsyncTodos",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/todos/${payload.id}`
+      );
+      return { id: payload.id };
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
 const todoSlice = createSlice({
   name: "todos",
   initialState: {
@@ -41,25 +54,6 @@ const todoSlice = createSlice({
       // { id: 2, title: "todo 2", completed: false },
     ],
     error: null,
-  },
-  reducers: {
-    addTodo: (state, action) => {
-      const newTodo = {
-        id: Date.now(),
-        title: action.payload.title,
-        completed: false,
-      };
-      state.todos.push(newTodo);
-    },
-    toggleComplete: (state, action) => {
-      const selectedTodo = state.todos.find(
-        (todo) => todo.id === action.payload.id
-      );
-      selectedTodo.completed = action.payload.completed;
-    },
-    deleteTodo: (state, action) => {
-      state.todos = state.todos.filter((todo) => todo.id != action.payload.id);
-    },
   },
   extraReducers: {
     [getAsyncTodos.fulfilled]: (state, action) => {
@@ -79,19 +73,19 @@ const todoSlice = createSlice({
     [addAsyncTodos.fulfilled]: (state, action) => {
       state.todos.push(action.payload);
     },
-    [toggleCompleteAsync.fulfilled]: (state, action) => {
-      const selectedTodo = state.todos.find(
-        (todo) => todo.id === action.payload.id
-      );
-      selectedTodo.completed = action.payload.completed;
-    },
+    // [toggleCompleteAsync.fulfilled]: (state, action) => {
+    //   const selectedTodo = state.todos.find(
+    //     (todo) => todo.id === action.payload.id
+    //   );
+    //   selectedTodo.completed = action.payload.completed;
+    // },
     [deleteAsyncTodos.fulfilled]: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.id != action.payload.id);
     },
   },
 });
 
-export const { addTodo, toggleComplete, deleteTodo } = todoSlice.actions;
+export const { } = todoSlice.actions;
 
 export default todoSlice.reducer;
 

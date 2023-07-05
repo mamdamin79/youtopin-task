@@ -7,41 +7,10 @@
       "compeleted": true
     },
     {
-      "id": 2,
-      "title": "gym",
-      "desc": "hit chest",
-      "compeleted": false
-    },
-    {
       "id": 3,
       "title": "tailwind",
       "desc": "learn about typography plugin",
       "compeleted": false
-    },
-    {
-      "id": 1688542247325,
-      "title": "d",
-      "completed": false
-    },
-    {
-      "id": 1688542277221,
-      "title": "dasd",
-      "completed": false
-    },
-    {
-      "id": 1688542486489,
-      "title": "ds",
-      "completed": false
-    },
-    {
-      "id": 1688542491756,
-      "title": "dsdsf",
-      "completed": false
-    },
-    {
-      "id": 1688544201860,
-      "title": "dsdsfsadad",
-      "completed": false
     }
   ]
 }

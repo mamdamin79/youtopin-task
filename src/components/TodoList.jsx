@@ -2,6 +2,8 @@ import {useEffect} from "react"
 import { HStack, Box, VStack, IconButton, Flex, Button, Text, StackDivider } from '@chakra-ui/react'
 import {useDispatch ,useSelector} from "react-redux"
 import { getAsyncTodos } from "../features/todos/todosSlice"
+import Modal from '../components/EditModal'
+
 const TodoList = () => {
     const {todos,loading,error} = useSelector((state)=>state.todos)
     const dispatch = useDispatch()
@@ -39,8 +41,7 @@ const TodoList = () => {
                         >
                         {todo.title}
                     </Text>
-                    {/* <DeleteTask task={task} deleteTask={deleteTask} deleteTaskAll={deleteTaskAll} />
-                    <UpdateTask task={task} updateTask={updateTask} /> */}
+                    <Modal todo={todo}/>
                 </HStack>
             ))}    
               

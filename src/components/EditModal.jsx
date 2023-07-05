@@ -9,12 +9,16 @@ import {
     useDisclosure,
     Button,
  } from '@chakra-ui/react'
+import { useDispatch } from 'react-redux';
+import { deleteAsyncTodos } from '../features/todos/todosSlice';
 
-function EditModal() {
+function EditModal({todo}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const dispatch = useDispatch()
+
     return (
         <>
-        <Button onClick={onOpen}>Open Modal</Button>
+        <Button onClick={onOpen}>delete</Button>
     
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -22,14 +26,14 @@ function EditModal() {
             <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quibusdam, nemo debitis sapiente tempora quas ullam repellendus reprehenderit deserunt! Necessitatibus a tenetur inventore ad perspiciatis eos ullam eveniet, cumque totam?
+                do you really want to delete {todo.title} task?
         </ModalBody>
 
         <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
             Close
             </Button>
-            <Button variant='ghost'>Secondary Action</Button>
+            <Button colorScheme='red' onClick={()=>dispatch(deleteAsyncTodos(todo))}>Delete!!</Button>
         </ModalFooter>
         </ModalContent>
     </Modal>
