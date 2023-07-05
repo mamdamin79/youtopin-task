@@ -31,7 +31,26 @@ export const addAsyncTodos = createAsyncThunk(
   }
 );
 
+// change the status of todo(complete,uncomplete) from json-server
+export const toggleCompleteAsync = createAsyncThunk(
+  "todos/toggleCompleteAsync",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/todos/${payload.id}`,
+        {
+          completed: payload.completed,
+          title: payload.title,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
 
+// delete specific todo from json-server
 export const deleteAsyncTodos = createAsyncThunk(
   "todos/deleteAsyncTodos",
   async (payload, { rejectWithValue }) => {
@@ -73,12 +92,12 @@ const todoSlice = createSlice({
     [addAsyncTodos.fulfilled]: (state, action) => {
       state.todos.push(action.payload);
     },
-    // [toggleCompleteAsync.fulfilled]: (state, action) => {
-    //   const selectedTodo = state.todos.find(
-    //     (todo) => todo.id === action.payload.id
-    //   );
-    //   selectedTodo.completed = action.payload.completed;
-    // },
+    [toggleCompleteAsync.fulfilled]: (state, action) => {
+      const selectedTodo = state.todos.find(
+        (todo) => todo.id === action.payload.id
+      );
+      selectedTodo.completed = action.payload.completed;
+    },
     [deleteAsyncTodos.fulfilled]: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.id != action.payload.id);
     },

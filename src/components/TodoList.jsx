@@ -1,7 +1,7 @@
 import {useEffect} from "react"
-import { HStack, Box, VStack, IconButton, Flex, Button, Text, StackDivider } from '@chakra-ui/react'
+import { HStack, Box, VStack, IconButton, Flex, Button, Text, StackDivider, Center, Spinner } from '@chakra-ui/react'
 import {useDispatch ,useSelector} from "react-redux"
-import { getAsyncTodos } from "../features/todos/todosSlice"
+import { deleteAsyncTodos, getAsyncTodos, toggleCompleteAsync } from "../features/todos/todosSlice"
 import Modal from '../components/EditModal'
 
 const TodoList = () => {
@@ -12,20 +12,22 @@ const TodoList = () => {
     useEffect(()=>{
         dispatch(getAsyncTodos())
     },[])
-    if (loading) return <p>loading...</p> 
-    if (error) return <p>your request failed</p> 
+    if (loading) return <Center> <Spinner /> </Center>
+    if (error) return <Center><p>your request failed</p></Center> 
   return (
       <>
         {
-            todos.length > 0 && <VStack
+            todos.length > 0 ? <VStack
             divider={<StackDivider />}
             borderColor='gray.100'
             borderWidth='2px'
+            width={100}
             p='5'
             borderRadius='lg'
             w='100%'
             maxW={{ base: '90vw', sm: '80vw', lg: '50vw', xl: '30vw' }}
             alignItems='stretch'
+
             >
                 {todos.map((todo) =>(
                 <HStack
@@ -36,16 +38,17 @@ const TodoList = () => {
                         w='100%' 
                         p='8px'
                         borderRadius='lg'
-                        as={todo.compeleted == true ? 's' : ''}
+                        as={todo.completed == true ? 's' : ''}
                         cursor='pointer'
                         >
                         {todo.title}
                     </Text>
-                    <Modal todo={todo}/>
+                    <Button   variant='outline' onClick={() =>dispatch(toggleCompleteAsync({ id:todo.id, title:todo.title, completed: !todo.completed }))} colorScheme='blue'>toggle</Button>
+                    <Modal   todo={todo}/>
                 </HStack>
             ))}    
               
-        </VStack>
+        </VStack>:<p>there is no task in your todo list,well done:)</p>
         }
 
         <Flex>

@@ -1,9 +1,8 @@
 // 1. import `ChakraProvider` component
-import { ChakraProvider} from '@chakra-ui/react'
+import { ChakraProvider, IconButton, VStack} from '@chakra-ui/react'
 import { store } from './features/store'
 import { Provider } from 'react-redux'
 import TodoList from "./components/TodoList"
-import Modal from './components/EditModal'
 import TodoForm from './components/TodoForm'
 
 
@@ -12,10 +11,10 @@ function App() {
   return (
     <ChakraProvider>
       <Provider store={store}>
-        <div >
+      <VStack p={4} minH='100vh' pb={28}>
           <TodoForm/>
           <TodoList/>
-        </div>
+        </VStack>
       </Provider>
     </ChakraProvider>
     
