@@ -15,7 +15,7 @@ const TodoList = () => {
   return (
       <>
         {
-            todos.data && <VStack
+            todos.length > 0 && <VStack
             divider={<StackDivider />}
             borderColor='gray.100'
             borderWidth='2px'
@@ -25,16 +25,16 @@ const TodoList = () => {
             maxW={{ base: '90vw', sm: '80vw', lg: '50vw', xl: '30vw' }}
             alignItems='stretch'
             >
-                {todos.data.map((todo) =>(
+                {todos.map((todo) =>(
                 <HStack
                 key={todo.id}
-                opacity={todo.check == true ? '0.2' : '1'}
+                opacity={todo.compeleted == true ? '0.2' : '1'}
                 >
                     <Text
                         w='100%' 
                         p='8px'
                         borderRadius='lg'
-                        as={todo.check == true ? 's' : ''}
+                        as={todo.compeleted == true ? 's' : ''}
                         cursor='pointer'
                         >
                         {todo.title}
